@@ -40,27 +40,35 @@ class _InputDialogState extends State<InputDialog> {
   final TripData _trip = TripData(
     distance: 1.0,
     distanceUnit: DistanceUnit.mile,
-    mileage: 40,
+    mileage: 41,
     mileageUnit: MileageUnit.mpg,
-    costPerUnitVolume: 1.30,
+    costPerUnitVolume: 1.31,
     costVolumeUnit: VolumeUnit.litre,
   );
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-        color: Colors.blue,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withAlpha(10),
+            blurRadius: 5.0,
+            offset: const Offset(0, 2.0),
+          ),
+        ],
+        borderRadius: const BorderRadius.all(Radius.circular(30.0)),
+        color: Colors.white,
       ),
       padding: const EdgeInsets.symmetric(
-        horizontal: 20.0,
-        vertical: 30.0,
+        horizontal: 10.0,
+        vertical: 10.0,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
+        spacing: 10.0,
         children: [
           UnitInput(
             label: 'Distance',
@@ -119,20 +127,26 @@ class _InputDialogState extends State<InputDialog> {
               DropdownMenuEntry(value: VolumeUnit.gallon, label: 'gallons'),
             ],
           ),
-          const SizedBox(height: 20.0),
-          TextButton(
-            onPressed: () {
+          const SizedBox(height: 10.0),
+          GestureDetector(
+            onTap: () {
               if (widget.onCalculate != null) {
                 widget.onCalculate!(_trip);
               }
             },
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.green,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
+            child: Container(
+              height: 60.0,
+              decoration: const BoxDecoration(
+                color: Color(0xFF9A7FE0),
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+              ),
+              child: const Center(
+                child: Text(
+                  'Calculate',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
-            child: const Text('Calculate'),
           ),
         ],
       ),

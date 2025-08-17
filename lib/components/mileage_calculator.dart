@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mileage/components/input_dialog.dart';
 import 'package:mileage/math.dart' as mileage_math;
 
@@ -10,10 +11,13 @@ class MileageCalculator extends StatefulWidget {
 }
 
 class _MileageCalculatorState extends State<MileageCalculator> {
-  double cost = 0.0;
+  double? cost;
 
   @override
   Widget build(BuildContext context) {
+    var formatCurrency = NumberFormat.simpleCurrency(
+        locale: Localizations.localeOf(context).toLanguageTag());
+
     return Column(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -25,12 +29,10 @@ class _MileageCalculatorState extends State<MileageCalculator> {
                 ? mileage_math.Mileage.mpg(tripData.mileage)
                 : mileage_math.Mileage.lp100km(tripData.mileage);
 
-            // 2500 mi
             final distance = tripData.distanceUnit == DistanceUnit.mile
                 ? mileage_math.Distance.mi(tripData.distance)
                 : mileage_math.Distance.km(tripData.distance);
 
-            // 131p per litre
             final fuelCost = mileage_math.FuelCost(
                 costPerUnit: tripData.costPerUnitVolume,
                 volumeUnit: tripData.costVolumeUnit == VolumeUnit.litre
@@ -45,11 +47,24 @@ class _MileageCalculatorState extends State<MileageCalculator> {
         ),
         Container(
           decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withAlpha(10),
+                blurRadius: 5.0,
+                offset: const Offset(0, 2.0),
+              ),
+            ],
             borderRadius: BorderRadius.circular(20.0),
-            color: Colors.blue,
+            color: Colors.white,
           ),
           padding: const EdgeInsets.all(10.0),
-          child: Text(cost.toString()),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text('Total cost:'),
+              Text(cost == null ? 'TODO' : formatCurrency.format(cost)),
+            ],
+          ),
         ),
       ],
     );
