@@ -13,6 +13,7 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   intl: ^0.20.2
+  flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
   flutter_test:
@@ -41,3 +42,10 @@ flutter:
           weight: 700
         - asset: assets/fonts/Poppins/Poppins-ExtraBold.ttf
           weight: 900
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path: "assets/icon/icon.png"
+  min_sdk_android: 36
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/icon/icon.png"
