@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mileage/components/input_dialog.dart';
-import 'package:mileage/math.dart' as mileage_math;
+import 'package:fuel_cost_calculator/components/input_dialog.dart';
+import 'package:fuel_cost_calculator/math.dart' as mileage_math;
 
 class MileageCalculator extends StatefulWidget {
   const MileageCalculator({super.key});

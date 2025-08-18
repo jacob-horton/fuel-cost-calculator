@@ -1,5 +1,5 @@
 // Import the test package and Counter class
-import 'package:mileage/math.dart';
+import 'package:fuel_cost_calculator/math.dart';
 import 'package:test/test.dart';
 
 void main() {

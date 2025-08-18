@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mileage/components/dropdown.dart';
+import 'package:fuel_cost_calculator/components/dropdown.dart';
 
 class UnitInput<T> extends StatelessWidget {
   final String label;

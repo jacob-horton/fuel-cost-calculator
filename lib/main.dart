@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mileage/arc_clipper.dart';
-import 'package:mileage/components/mileage_calculator.dart';
+import 'package:fuel_cost_calculator/arc_clipper.dart';
+import 'package:fuel_cost_calculator/components/mileage_calculator.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Mileage',
+      title: 'Fuel Cost Calculator',
       theme: ThemeData(
         useMaterial3: true,
         fontFamily: 'Poppins',

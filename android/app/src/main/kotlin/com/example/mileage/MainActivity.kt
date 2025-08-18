@@ -1,4 +1,4 @@
-package com.example.mileage
+package com.jcode.mileage
 
 import io.flutter.embedding.android.FlutterActivity
 

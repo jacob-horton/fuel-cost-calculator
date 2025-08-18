@@ -1,4 +1,4 @@
-name: mileage
+name: fuel_cost_calculator
 description: "Fuel cost calculator"
 publish_to: 'none'
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mileage/components/unit_input.dart';
+import 'package:fuel_cost_calculator/components/unit_input.dart';
 
 enum DistanceUnit { kilometre, mile }
 
