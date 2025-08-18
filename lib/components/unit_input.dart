@@ -12,6 +12,8 @@ class UnitInput<T> extends StatelessWidget {
   final void Function(String)? onValueChanged;
   final void Function(T?)? onUnitChanged;
 
+  final BorderRadiusGeometry? borderRadius;
+
   const UnitInput({
     super.key,
     required this.label,
@@ -20,6 +22,7 @@ class UnitInput<T> extends StatelessWidget {
     this.initialUnit,
     this.onValueChanged,
     this.onUnitChanged,
+    this.borderRadius,
   });
 
   @override
@@ -27,7 +30,7 @@ class UnitInput<T> extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[200],
-        borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+        borderRadius: borderRadius,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,17 +39,27 @@ class UnitInput<T> extends StatelessWidget {
             flex: 5,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Center(
-                child: TextFormField(
-                  initialValue: initialValue,
-                  onChanged: onValueChanged,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.zero,
-                    isDense: true,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      color: Colors.grey[600],
+                    ),
                   ),
-                  keyboardType: TextInputType.number,
-                ),
+                  TextFormField(
+                    initialValue: initialValue,
+                    onChanged: onValueChanged,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.zero,
+                      isDense: true,
+                    ),
+                    keyboardType: TextInputType.number,
+                  ),
+                ],
               ),
             ),
           ),

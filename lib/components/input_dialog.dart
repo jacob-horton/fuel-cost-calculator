@@ -60,18 +60,16 @@ class _InputDialogState extends State<InputDialog> {
         borderRadius: const BorderRadius.all(Radius.circular(30.0)),
         color: Colors.white,
       ),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10.0,
-        vertical: 10.0,
-      ),
+      padding: const EdgeInsets.all(10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
-        spacing: 10.0,
+        mainAxisSize: MainAxisSize.min,
+        spacing: 5.0,
         children: [
           UnitInput(
             label: 'Distance',
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
             initialUnit: _trip.distanceUnit,
             initialValue: _trip.distance.toString(),
             onUnitChanged: (unit) {
@@ -91,6 +89,7 @@ class _InputDialogState extends State<InputDialog> {
           ),
           UnitInput(
             label: 'Mileage',
+            borderRadius: BorderRadius.zero,
             initialUnit: _trip.mileageUnit,
             initialValue: _trip.mileage.toString(),
             onUnitChanged: (unit) {
@@ -110,6 +109,7 @@ class _InputDialogState extends State<InputDialog> {
           ),
           UnitInput(
             label: 'Cost per unit',
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(20.0)),
             initialUnit: _trip.costVolumeUnit,
             initialValue: _trip.costPerUnitVolume.toString(),
             onUnitChanged: (unit) {
@@ -130,6 +130,7 @@ class _InputDialogState extends State<InputDialog> {
           const SizedBox(height: 10.0),
           GestureDetector(
             onTap: () {
+              FocusManager.instance.primaryFocus?.unfocus();
               if (widget.onCalculate != null) {
                 widget.onCalculate!(_trip);
               }

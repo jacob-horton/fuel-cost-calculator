@@ -42,48 +42,59 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(color: const Color(0xFFEEEDF3)),
-          Positioned(
-            left: 0.0,
-            right: 0.0,
-            child: ClipPath(
-              clipper: CurvedBottomClipper(),
-              child: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xFFC2A6F1), Color(0xFF946ED5)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                ),
-                height: 300.0,
-                child: const SafeArea(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 50.0),
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Text(
-                        "Fuel Cost Calculator",
-                        style: TextStyle(
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        body: OrientationBuilder(builder: (context, orientation) {
+          return Stack(
+            children: [
+              Container(color: const Color(0xFFEEEDF3)),
+              Positioned(
+                left: 0.0,
+                right: 0.0,
+                child: ClipPath(
+                  clipper: CurvedBottomClipper(),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Color(0xFFC2A6F1), Color(0xFF946ED5)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                    ),
+                    height: 300.0,
+                    child: SafeArea(
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: orientation == Orientation.portrait
+                                ? 50.0
+                                : 0.0),
+                        child: const Align(
+                          alignment: Alignment.topCenter,
+                          child: Text(
+                            "Fuel Cost Calculator",
+                            style: TextStyle(
+                              fontSize: 28.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.0),
-            child: MileageCalculator(),
-          ),
-        ],
+              Padding(
+                padding: EdgeInsets.only(
+                    left: 30.0,
+                    right: 30.0,
+                    top: orientation == Orientation.portrait ? 150.0 : 50.0),
+                child: const MileageCalculator(),
+              ),
+            ],
+          );
+        }),
       ),
     );
   }
