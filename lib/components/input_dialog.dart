@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fuel_cost_calculator/components/unit_input.dart';
+import 'package:intl/intl.dart';
 
 enum DistanceUnit { kilometre, mile }
 
@@ -48,6 +49,9 @@ class _InputDialogState extends State<InputDialog> {
 
   @override
   Widget build(BuildContext context) {
+    var numberFormat = NumberFormat.decimalPattern(
+        Localizations.localeOf(context).toLanguageTag());
+
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
@@ -69,9 +73,10 @@ class _InputDialogState extends State<InputDialog> {
         children: [
           UnitInput(
             label: 'Distance',
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+            borderRadius:
+                const BorderRadius.vertical(top: Radius.circular(20.0)),
             initialUnit: _trip.distanceUnit,
-            initialValue: _trip.distance.toString(),
+            initialValue: numberFormat.format(_trip.distance),
             onUnitChanged: (unit) {
               if (unit == null) {
                 print('No unit selected');
@@ -80,8 +85,8 @@ class _InputDialogState extends State<InputDialog> {
 
               setState(() => _trip.distanceUnit = unit);
             },
-            onValueChanged: (value) =>
-                setState(() => _trip.distance = double.parse(value)),
+            onValueChanged: (value) => setState(
+                () => _trip.distance = numberFormat.parse(value).toDouble()),
             units: const [
               DropdownMenuEntry(value: DistanceUnit.mile, label: 'mi'),
               DropdownMenuEntry(value: DistanceUnit.kilometre, label: 'km'),
@@ -91,7 +96,7 @@ class _InputDialogState extends State<InputDialog> {
             label: 'Mileage',
             borderRadius: BorderRadius.zero,
             initialUnit: _trip.mileageUnit,
-            initialValue: _trip.mileage.toString(),
+            initialValue: numberFormat.format(_trip.mileage),
             onUnitChanged: (unit) {
               if (unit == null) {
                 print('No unit selected');
@@ -100,8 +105,8 @@ class _InputDialogState extends State<InputDialog> {
 
               setState(() => _trip.mileageUnit = unit);
             },
-            onValueChanged: (value) =>
-                setState(() => _trip.mileage = double.parse(value)),
+            onValueChanged: (value) => setState(
+                () => _trip.mileage = numberFormat.parse(value).toDouble()),
             units: const [
               DropdownMenuEntry(value: MileageUnit.mpg, label: 'mpg'),
               DropdownMenuEntry(value: MileageUnit.lp100km, label: 'L/100km'),
@@ -109,9 +114,10 @@ class _InputDialogState extends State<InputDialog> {
           ),
           UnitInput(
             label: 'Cost per unit',
-            borderRadius: BorderRadius.vertical(bottom: Radius.circular(20.0)),
+            borderRadius:
+                const BorderRadius.vertical(bottom: Radius.circular(20.0)),
             initialUnit: _trip.costVolumeUnit,
-            initialValue: _trip.costPerUnitVolume.toString(),
+            initialValue: numberFormat.format(_trip.costPerUnitVolume),
             onUnitChanged: (unit) {
               if (unit == null) {
                 print('No unit selected');
@@ -120,8 +126,8 @@ class _InputDialogState extends State<InputDialog> {
 
               setState(() => _trip.costVolumeUnit = unit);
             },
-            onValueChanged: (value) =>
-                setState(() => _trip.costPerUnitVolume = double.parse(value)),
+            onValueChanged: (value) => setState(() =>
+                _trip.costPerUnitVolume = numberFormat.parse(value).toDouble()),
             units: const [
               DropdownMenuEntry(value: VolumeUnit.litre, label: 'L'),
               DropdownMenuEntry(value: VolumeUnit.gallon, label: 'gallons'),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fuel_cost_calculator/arc_clipper.dart';
 import 'package:fuel_cost_calculator/components/mileage_calculator.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +18,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'Poppins',
       ),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       supportedLocales: const [
         Locale('en'),
         Locale('en', 'GB'),
