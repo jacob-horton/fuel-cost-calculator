@@ -4,9 +4,9 @@ import 'package:intl/intl.dart';
 
 enum DistanceUnit { kilometre, mile }
 
-enum VolumeUnit { litre, gallon }
+enum VolumeUnit { litre, imperialGallon, usGallon }
 
-enum MileageUnit { mpg, lp100km }
+enum MileageUnit { mpgImperial, mpgUs, lp100km }
 
 class TripData {
   double distance;
@@ -42,7 +42,7 @@ class _InputDialogState extends State<InputDialog> {
     distance: 1.0,
     distanceUnit: DistanceUnit.mile,
     mileage: 41,
-    mileageUnit: MileageUnit.mpg,
+    mileageUnit: MileageUnit.mpgImperial,
     costPerUnitVolume: 1.31,
     costVolumeUnit: VolumeUnit.litre,
   );
@@ -108,7 +108,9 @@ class _InputDialogState extends State<InputDialog> {
             onValueChanged: (value) => setState(
                 () => _trip.mileage = numberFormat.parse(value).toDouble()),
             units: const [
-              DropdownMenuEntry(value: MileageUnit.mpg, label: 'mpg'),
+              DropdownMenuEntry(
+                  value: MileageUnit.mpgImperial, label: 'mpg (Imp)'),
+              DropdownMenuEntry(value: MileageUnit.mpgUs, label: 'mpg (US)'),
               DropdownMenuEntry(value: MileageUnit.lp100km, label: 'L/100km'),
             ],
           ),
@@ -130,7 +132,9 @@ class _InputDialogState extends State<InputDialog> {
                 _trip.costPerUnitVolume = numberFormat.parse(value).toDouble()),
             units: const [
               DropdownMenuEntry(value: VolumeUnit.litre, label: 'L'),
-              DropdownMenuEntry(value: VolumeUnit.gallon, label: 'gallons'),
+              DropdownMenuEntry(
+                  value: VolumeUnit.imperialGallon, label: 'gal (Imp)'),
+              DropdownMenuEntry(value: VolumeUnit.usGallon, label: 'gal (US)'),
             ],
           ),
           const SizedBox(height: 10.0),

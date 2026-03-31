@@ -23,7 +23,7 @@ void main() {
   test('Consistent but non-standard units', () {
     // 10 mpg
     final mpg = Mileage(
-      volume: Volume(unit: VolumeUnit.gallon, value: 1),
+      volume: Volume(unit: VolumeUnit.imperialGallon, value: 1),
       distance: Distance(unit: DistanceUnit.mile, value: 10.0),
     );
 
@@ -31,7 +31,8 @@ void main() {
     final distance = Distance(value: 10.0, unit: DistanceUnit.mile);
 
     // £5 per gallon
-    final fuelCost = FuelCost(costPerUnit: 5.0, volumeUnit: VolumeUnit.gallon);
+    final fuelCost =
+        FuelCost(costPerUnit: 5.0, volumeUnit: VolumeUnit.imperialGallon);
 
     final trip = Trip(distance: distance, mileage: mpg, fuelCost: fuelCost);
     expect(trip.totalCost(), 5.0);
@@ -40,7 +41,7 @@ void main() {
   test('UK units', () {
     // 10 mpg
     final mpg = Mileage(
-      volume: Volume(unit: VolumeUnit.gallon, value: 1),
+      volume: Volume(unit: VolumeUnit.imperialGallon, value: 1),
       distance: Distance(unit: DistanceUnit.mile, value: 10.0),
     );
 
@@ -54,10 +55,27 @@ void main() {
     expect(trip.totalCost(), closeTo(0.23, 0.005));
   });
 
+  test('US units', () {
+    // 10 mpg (US)
+    final mpg = Mileage(
+      volume: Volume(unit: VolumeUnit.usGallon, value: 1),
+      distance: Distance(unit: DistanceUnit.mile, value: 10.0),
+    );
+
+    // 10 miles
+    final distance = Distance(value: 10.0, unit: DistanceUnit.mile);
+
+    // 0.05 (e.g., 5 cents) per litre
+    final fuelCost = FuelCost(costPerUnit: 0.05, volumeUnit: VolumeUnit.litre);
+
+    final trip = Trip(distance: distance, mileage: mpg, fuelCost: fuelCost);
+    expect(trip.totalCost(), closeTo(0.19, 0.005));
+  });
+
   test('Real world', () {
     // 41 mpg
     final mpg = Mileage(
-      volume: Volume(unit: VolumeUnit.gallon, value: 1),
+      volume: Volume(unit: VolumeUnit.imperialGallon, value: 1),
       distance: Distance(unit: DistanceUnit.mile, value: 41.0),
     );
 
@@ -73,7 +91,7 @@ void main() {
 
   test('Real world using convenience constructors', () {
     // 41 mpg
-    final mpg = Mileage.mpg(41.0);
+    final mpg = Mileage.mpgImperial(41.0);
 
     // 2500 mi
     final distance = Distance.mi(2500.0);

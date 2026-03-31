@@ -25,12 +25,13 @@ class Distance {
   }
 }
 
-enum VolumeUnit { litre, gallon }
+enum VolumeUnit { litre, imperialGallon, usGallon }
 
 class Volume {
   static final Map<VolumeUnit, double> litresPerUnit = {
     VolumeUnit.litre: 1.0,
-    VolumeUnit.gallon: 4.54609,
+    VolumeUnit.imperialGallon: 4.54609,
+    VolumeUnit.usGallon: 3.78541,
   };
 
   final double value;
@@ -42,9 +43,13 @@ class Volume {
       : value = val,
         unit = VolumeUnit.litre;
 
-  Volume.gallon(double val)
+  Volume.imperialGallon(double val)
       : value = val,
-        unit = VolumeUnit.gallon;
+        unit = VolumeUnit.imperialGallon;
+
+  Volume.usGallon(double val)
+      : value = val,
+        unit = VolumeUnit.usGallon;
 
   double as(VolumeUnit toUnit) {
     return value * litresPerUnit[unit]! / litresPerUnit[toUnit]!;
@@ -57,9 +62,13 @@ class Mileage {
 
   Mileage({required this.distance, required this.volume});
 
-  Mileage.mpg(double value)
+  Mileage.mpgImperial(double value)
       : distance = Distance(value: value, unit: DistanceUnit.mile),
-        volume = Volume(value: 1.0, unit: VolumeUnit.gallon);
+        volume = Volume(value: 1.0, unit: VolumeUnit.imperialGallon);
+
+  Mileage.mpgUs(double value)
+      : distance = Distance(value: value, unit: DistanceUnit.mile),
+        volume = Volume(value: 1.0, unit: VolumeUnit.usGallon);
 
   Mileage.lp100km(double value)
       : distance = Distance(value: 100, unit: DistanceUnit.kilometre),

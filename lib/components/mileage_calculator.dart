@@ -28,19 +28,31 @@ class _MileageCalculatorState extends State<MileageCalculator> {
             alignment: Alignment.topCenter,
             child: InputDialog(
               onCalculate: (tripData) {
-                final mpg = tripData.mileageUnit == MileageUnit.mpg
-                    ? mileage_math.Mileage.mpg(tripData.mileage)
-                    : mileage_math.Mileage.lp100km(tripData.mileage);
+                late final mileage_math.Mileage mpg;
+                if (tripData.mileageUnit == MileageUnit.mpgImperial) {
+                  mpg = mileage_math.Mileage.mpgImperial(tripData.mileage);
+                } else if (tripData.mileageUnit == MileageUnit.mpgUs) {
+                  mpg = mileage_math.Mileage.mpgUs(tripData.mileage);
+                } else {
+                  mpg = mileage_math.Mileage.lp100km(tripData.mileage);
+                }
 
                 final distance = tripData.distanceUnit == DistanceUnit.mile
                     ? mileage_math.Distance.mi(tripData.distance)
                     : mileage_math.Distance.km(tripData.distance);
 
+                late final mileage_math.VolumeUnit mappedVolumeUnit;
+                if (tripData.costVolumeUnit == VolumeUnit.litre) {
+                  mappedVolumeUnit = mileage_math.VolumeUnit.litre;
+                } else if (tripData.costVolumeUnit == VolumeUnit.usGallon) {
+                  mappedVolumeUnit = mileage_math.VolumeUnit.usGallon;
+                } else {
+                  mappedVolumeUnit = mileage_math.VolumeUnit.imperialGallon;
+                }
+
                 final fuelCost = mileage_math.FuelCost(
                     costPerUnit: tripData.costPerUnitVolume,
-                    volumeUnit: tripData.costVolumeUnit == VolumeUnit.litre
-                        ? mileage_math.VolumeUnit.litre
-                        : mileage_math.VolumeUnit.gallon);
+                    volumeUnit: mappedVolumeUnit);
 
                 final trip = mileage_math.Trip(
                     distance: distance, mileage: mpg, fuelCost: fuelCost);
@@ -66,7 +78,7 @@ class _MileageCalculatorState extends State<MileageCalculator> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 25.0, vertical: 20.0),
               child: cost == null
-                  ? Text("Press 'Calculate' to see your cost!")
+                  ? const Text("Press 'Calculate' to see your cost!")
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.center,
